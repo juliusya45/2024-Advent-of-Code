@@ -3,6 +3,7 @@ package Days;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Day1 {
@@ -25,7 +26,6 @@ public class Day1 {
 
 				leftList.add(left);
 				rightList.add(right);
-				System.out.println(left);
 			}
 			fileIn.close();
 			System.out.println("Successfully read input file!");
@@ -47,5 +47,81 @@ public class Day1 {
 		}
 
 		return totalDist;
+	}
+
+	public int findSimilarity()
+	{
+		int totalSimilarity = 0;
+
+		// First sort the arrayLists:
+		leftList.sort(null);
+		rightList.sort(null);
+
+		for (int i = 0; i < leftList.size(); i++) {
+			int count = 0;
+			int leftNum = leftList.get(i);
+			while(rightList.contains(leftNum))
+			{
+				// Find and remove
+				for(int j = 0; j < rightList.size(); j++)
+				{
+					if(rightList.get(j) == leftNum)
+					{
+						rightList.remove(j);
+						break;
+					}
+				}
+
+
+				count++;
+			}
+			totalSimilarity += leftNum * count;
+		}
+
+		return totalSimilarity;
+	}
+
+	public int findSimilarityHash()
+	{
+		int totalSimilarity = 0;
+
+		// First sort the arrayLists:
+		leftList.sort(null);
+		rightList.sort(null);
+
+		HashMap<Integer, Integer> hashMap = new HashMap<>();
+
+		// Add the keys in when passing through the left list
+		for (int i = 0; i < leftList.size(); i++) {
+			if(!hashMap.containsKey(leftList.get(i)) && rightList.contains(leftList.get(i)))
+			{
+				hashMap.put(leftList.get(i), 0);
+			}
+			// If it already exists increment it by the value of the key itself
+			else if(hashMap.containsKey(leftList.get(i))){
+				hashMap.put(leftList.get(i), hashMap.get(leftList.get(i)) + leftList.get(i));
+			}
+
+		}
+
+		// Then go through the right list and increment the counter again
+		for(int j = 0; j < rightList.size(); j++)
+		{
+			int value = rightList.get(j);
+			if(hashMap.containsKey(value))
+			{
+				hashMap.put(value, hashMap.get(value) + 1);
+			}
+		}
+
+		// Find the similarity by going through the key and multiplying the counts with the keys
+		for(Integer key : hashMap.keySet())
+		{
+			totalSimilarity += key * hashMap.get(key);
+		}
+
+		System.out.println(hashMap);
+
+		return totalSimilarity;
 	}
 }

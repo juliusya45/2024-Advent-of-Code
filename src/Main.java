@@ -4,7 +4,7 @@ import Days.*;
 public class Main
 {
 	public static void main(String[] args) {
-		day3();
+		day1();
 	}
 
 	public static void day1()
@@ -14,6 +14,11 @@ public class Main
 		obj.inputTxt("Inputs/inputDay1.txt");
 		int distance = obj.findDist();
 		System.out.println(distance);
+		int similarity = obj.findSimilarity();
+		System.out.println("Similarity: " + similarity);
+		obj.inputTxt("Inputs/inputDay1.txt");
+		int hashSimilarity = obj.findSimilarityHash();
+		System.out.println("Similarity (HashMap Version): " + hashSimilarity);
 	}
 
 	public static void day2()
