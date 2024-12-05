@@ -4,7 +4,7 @@ import Days.*;
 public class Main
 {
 	public static void main(String[] args) {
-		day1();
+		day2();
 	}
 
 	public static void day1()
@@ -27,6 +27,8 @@ public class Main
 		Day2 obj = new Day2("Inputs/inputDay2.txt");
 		int safeReports = obj.getSafeReports();
 		System.out.println(safeReports);
+		int safeReportsDampened = obj.getSafeReportsDampened();
+		System.out.println("Part 2:" + safeReportsDampened);
 	}
 
 	public static void day3()
